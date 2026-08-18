@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Food Review System</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🍽️ Food Review & Suggestion Portal</h1>
+            <p>Share your dining experience and suggestions</p>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="tab-button active" data-tab="menu">Menu</button>
+            <button class="tab-button" data-tab="suggestions">Suggestions</button>
+        </nav>
+
+        <!-- Menu Tab -->
+        <section id="menu" class="tab-content active">
+            <div class="menu-header">
+                <h2>Our Menu</h2>
+                <div class="filter-controls">
+                    <input type="text" id="searchInput" placeholder="Search food items..." class="search-box">
+                    <select id="categoryFilter" class="filter-select">
+                        <option value="">All Categories</option>
+                        <option value="Vegetarian">Vegetarian</option>
+                        <option value="Non-Vegetarian">Non-Vegetarian</option>
+                        <option value="Vegan">Vegan</option>
+                        <option value="Dessert">Dessert</option>
+                        <option value="Beverage">Beverage</option>
+                    </select>
+                </div>
+            </div>
+            <div id="menuContainer" class="menu-grid">
+                <!-- Menu items will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Suggestions Tab -->
+        <section id="suggestions" class="tab-content">
+            <div class="suggestions-header">
+                <h2>Share Your Suggestion</h2>
+            </div>
+            <form id="suggestionForm" class="suggestion-form">
+                <div class="form-group">
+                    <label for="sugName">Your Name:</label>
+                    <input type="text" id="sugName" name="studentName" required>
+                </div>
+                <div class="form-group">
+                    <label for="sugEmail">Your Email:</label>
+                    <input type="email" id="sugEmail" name="studentEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="sugCategory">Category:</label>
+                    <select id="sugCategory" name="category" required>
+                        <option value="">Select Category</option>
+                        <option value="New Item">New Item Suggestion</option>
+                        <option value="Improvement">Menu Improvement</option>
+                        <option value="General">General Feedback</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sugText">Your Suggestion:</label>
+                    <input type="text" id="sugText" name="suggestion" placeholder="Brief suggestion" required>
+                </div>
+                <div class="form-group">
+                    <label for="sugDesc">Description (optional):</label>
+                    <textarea id="sugDesc" name="description" rows="4" placeholder="Provide more details..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Submit Suggestion</button>
+            </form>
+            <div id="suggestionsList" class="suggestions-list">
+                <!-- Submitted suggestions will be shown here -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Review Modal -->
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Leave a Review</h2>
+            <form id="reviewForm">
+                <input type="hidden" id="menuItemId" name="menuItemId">
+                
+                <div class="form-group">
+                    <label for="reviewName">Your Name:</label>
+                    <input type="text" id="reviewName" name="studentName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reviewEmail">Your Email:</label>
+                    <input type="email" id="reviewEmail" name="studentEmail" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="rating">Rating:</label>
+                    <div class="star-rating">
+                        <span class="star" data-rating="1">★</span>
+                        <span class="star" data-rating="2">★</span>
+                        <span class="star" data-rating="3">★</span>
+                        <span class="star" data-rating="4">★</span>
+                        <span class="star" data-rating="5">★</span>
+                    </div>
+                    <input type="hidden" id="rating" name="rating" value="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="comment">Your Comment:</label>
+                    <textarea id="comment" name="comment" rows="4" placeholder="Share your thoughts about this dish..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn-submit">Submit Review</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Item Detail Modal -->
+    <div id="itemModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="itemDetails">
+                <!-- Item details and reviews will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
