@@ -1,135 +1,495 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Food Review System</title>
-    <link rel="stylesheet" href="/css/style.css">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Hostel Mess</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/style.css}">
+
 </head>
+
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <h1>🍽️ Food Review & Suggestion Portal</h1>
-            <p>Share your dining experience and suggestions</p>
-        </header>
 
-        <!-- Navigation Tabs -->
-        <nav class="nav-tabs">
-            <button class="tab-button active" data-tab="menu">Menu</button>
-            <button class="tab-button" data-tab="suggestions">Suggestions</button>
-        </nav>
+<!-- NAVBAR -->
 
-        <!-- Menu Tab -->
-        <section id="menu" class="tab-content active">
-            <div class="menu-header">
-                <h2>Our Menu</h2>
-                <div class="filter-controls">
-                    <input type="text" id="searchInput" placeholder="Search food items..." class="search-box">
-                    <select id="categoryFilter" class="filter-select">
-                        <option value="">All Categories</option>
-                        <option value="Vegetarian">Vegetarian</option>
-                        <option value="Non-Vegetarian">Non-Vegetarian</option>
-                        <option value="Vegan">Vegan</option>
-                        <option value="Dessert">Dessert</option>
-                        <option value="Beverage">Beverage</option>
-                    </select>
-                </div>
-            </div>
-            <div id="menuContainer" class="menu-grid">
-                <!-- Menu items will be loaded here -->
-            </div>
-        </section>
+<nav class="navbar">
 
-        <!-- Suggestions Tab -->
-        <section id="suggestions" class="tab-content">
-            <div class="suggestions-header">
-                <h2>Share Your Suggestion</h2>
-            </div>
-            <form id="suggestionForm" class="suggestion-form">
-                <div class="form-group">
-                    <label for="sugName">Your Name:</label>
-                    <input type="text" id="sugName" name="studentName" required>
-                </div>
-                <div class="form-group">
-                    <label for="sugEmail">Your Email:</label>
-                    <input type="email" id="sugEmail" name="studentEmail" required>
-                </div>
-                <div class="form-group">
-                    <label for="sugCategory">Category:</label>
-                    <select id="sugCategory" name="category" required>
-                        <option value="">Select Category</option>
-                        <option value="New Item">New Item Suggestion</option>
-                        <option value="Improvement">Menu Improvement</option>
-                        <option value="General">General Feedback</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="sugText">Your Suggestion:</label>
-                    <input type="text" id="sugText" name="suggestion" placeholder="Brief suggestion" required>
-                </div>
-                <div class="form-group">
-                    <label for="sugDesc">Description (optional):</label>
-                    <textarea id="sugDesc" name="description" rows="4" placeholder="Provide more details..."></textarea>
-                </div>
-                <button type="submit" class="btn-submit">Submit Suggestion</button>
-            </form>
-            <div id="suggestionsList" class="suggestions-list">
-                <!-- Submitted suggestions will be shown here -->
-            </div>
-        </section>
-    </div>
+    <div class="logo">
 
-    <!-- Review Modal -->
-    <div id="reviewModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 id="modalTitle">Leave a Review</h2>
-            <form id="reviewForm">
-                <input type="hidden" id="menuItemId" name="menuItemId">
-                
-                <div class="form-group">
-                    <label for="reviewName">Your Name:</label>
-                    <input type="text" id="reviewName" name="studentName" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="reviewEmail">Your Email:</label>
-                    <input type="email" id="reviewEmail" name="studentEmail" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="rating">Rating:</label>
-                    <div class="star-rating">
-                        <span class="star" data-rating="1">★</span>
-                        <span class="star" data-rating="2">★</span>
-                        <span class="star" data-rating="3">★</span>
-                        <span class="star" data-rating="4">★</span>
-                        <span class="star" data-rating="5">★</span>
-                    </div>
-                    <input type="hidden" id="rating" name="rating" value="0">
-                </div>
-                
-                <div class="form-group">
-                    <label for="comment">Your Comment:</label>
-                    <textarea id="comment" name="comment" rows="4" placeholder="Share your thoughts about this dish..."></textarea>
-                </div>
-                
-                <button type="submit" class="btn-submit">Submit Review</button>
-            </form>
+        <div class="logo-icon">
+            🍴
         </div>
-    </div>
 
-    <!-- Item Detail Modal -->
-    <div id="itemModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div id="itemDetails">
-                <!-- Item details and reviews will be loaded here -->
-            </div>
+        <div>
+
+            <h2>Hostel Mess</h2>
+
+            <span>Good Food, Happy Mood</span>
+
         </div>
+
     </div>
 
-    <script src="/js/main.js"></script>
+    <div class="nav-links">
+
+        <a href="#home">Home</a>
+
+        <a href="#menu">Menu</a>
+
+        <a href="#ratings">Ratings</a>
+
+        <a href="#suggestions">Suggestions</a>
+
+        <a href="#about">About</a>
+
+    </div>
+
+    <button class="login-btn">
+        Login
+    </button>
+
+</nav>
+
+
+<!-- SUCCESS MESSAGE -->
+
+<div class="success-message"
+     th:if="${successMessage}"
+     th:text="${successMessage}">
+</div>
+
+
+<!-- HERO -->
+
+<section id="home" class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            Welcome to<br>
+            Our Hostel Mess!
+        </h1>
+
+        <p>
+            We serve healthy, hygienic and
+            tasty food every day.
+        </p>
+
+        <div class="features">
+
+            <div class="feature">
+
+                <div class="circle">🍴</div>
+
+                <span>
+                    Hygienic<br>
+                    Food
+                </span>
+
+            </div>
+
+            <div class="feature">
+
+                <div class="circle">🌿</div>
+
+                <span>
+                    Balanced<br>
+                    Meals
+                </span>
+
+            </div>
+
+            <div class="feature">
+
+                <div class="circle">♡</div>
+
+                <span>
+                    Student<br>
+                    Satisfaction
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="hero-image">
+
+        <img
+            src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=80"
+            alt="Gujarati Food">
+
+    </div>
+
+</section>
+
+
+<!-- MAIN CONTENT -->
+
+<section class="dashboard">
+
+
+    <!-- TODAY MENU -->
+
+    <div id="menu" class="card menu-card">
+
+        <div class="card-title">
+
+            <h2>Today's Menu</h2>
+
+            <span th:text="${todayDate}">
+                18 August 2026
+            </span>
+
+        </div>
+
+
+        <div th:each="menu : ${todayMenu}"
+             class="meal-item">
+
+            <div class="meal-icon">
+
+                <span th:if="${menu.mealType.name() == 'BREAKFAST'}">
+                    ☀
+                </span>
+
+                <span th:if="${menu.mealType.name() == 'LUNCH'}">
+                    ☀
+                </span>
+
+                <span th:if="${menu.mealType.name() == 'DINNER'}">
+                    ☾
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <h3 th:text="${menu.mealType}">
+                    BREAKFAST
+                </h3>
+
+                <p th:text="${menu.mealItems}">
+                    Menu items
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <a href="#menu"
+           class="full-menu-btn">
+
+            ☷ View Full Menu
+
+        </a>
+
+    </div>
+
+
+    <!-- REVIEW -->
+
+    <div id="ratings" class="card">
+
+        <h2>★ Rate Your Meal</h2>
+
+        <p class="subtitle">
+            Your feedback helps us improve every day.
+        </p>
+
+
+        <form action="/reviews"
+              method="post">
+
+            <div class="two-columns">
+
+                <div>
+
+                    <label>
+                        Roll Number *
+                    </label>
+
+                    <input
+                        type="text"
+                        name="rollNo"
+                        placeholder="Enter your roll number"
+                        required>
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Your Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        name="studentName"
+                        placeholder="Enter your name"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <label>
+                Select Meal *
+            </label>
+
+            <select name="menuId" required>
+
+                <option value="">
+                    Select today's meal
+                </option>
+
+                <option th:each="menu : ${todayMenu}"
+                        th:value="${menu.id}"
+                        th:text="${menu.mealType + ' - ' + menu.mealItems}">
+                </option>
+
+            </select>
+
+
+            <label>
+                Rate Your Meal *
+            </label>
+
+
+            <div class="rating-container">
+
+                <input type="radio"
+                       id="star1"
+                       name="rating"
+                       value="1"
+                       required>
+
+                <label for="star1">
+                    ☆
+                    <span>Very Bad</span>
+                </label>
+
+
+                <input type="radio"
+                       id="star2"
+                       name="rating"
+                       value="2">
+
+                <label for="star2">
+                    ☆
+                    <span>Bad</span>
+                </label>
+
+
+                <input type="radio"
+                       id="star3"
+                       name="rating"
+                       value="3">
+
+                <label for="star3">
+                    ☆
+                    <span>Average</span>
+                </label>
+
+
+                <input type="radio"
+                       id="star4"
+                       name="rating"
+                       value="4">
+
+                <label for="star4">
+                    ☆
+                    <span>Good</span>
+                </label>
+
+
+                <input type="radio"
+                       id="star5"
+                       name="rating"
+                       value="5">
+
+                <label for="star5">
+                    ☆
+                    <span>Excellent</span>
+                </label>
+
+            </div>
+
+
+            <label>
+                Comment (Optional)
+            </label>
+
+            <textarea
+                name="review"
+                placeholder="Share your experience...">
+            </textarea>
+
+
+            <button type="submit"
+                    class="submit-btn">
+
+                Submit Rating
+
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- SUGGESTION -->
+
+    <div id="suggestions"
+         class="card">
+
+        <h2>💡 Suggestion Box</h2>
+
+        <p class="subtitle">
+            Have any suggestions? We'd love to hear!
+        </p>
+
+
+        <form action="/suggestions"
+              method="post">
+
+
+            <label>
+                Roll Number *
+            </label>
+
+            <input
+                type="text"
+                name="rollNo"
+                placeholder="Enter your roll number"
+                required>
+
+
+            <label>
+                Your Name *
+            </label>
+
+            <input
+                type="text"
+                name="studentName"
+                placeholder="Enter your name"
+                required>
+
+
+            <label>
+                Your Suggestion *
+            </label>
+
+            <textarea
+                name="suggestion"
+                placeholder="Write your suggestion here..."
+                required>
+            </textarea>
+
+
+            <button type="submit"
+                    class="submit-btn">
+
+                Submit Suggestion
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- BOTTOM FEATURES -->
+
+<section id="about"
+         class="bottom-features">
+
+    <div>
+
+        <span>🛡</span>
+
+        <div>
+
+            <h3>Hygienic & Safe</h3>
+
+            <p>
+                We maintain the highest standards of hygiene.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div>
+
+        <span>👥</span>
+
+        <div>
+
+            <h3>Student First</h3>
+
+            <p>
+                Your satisfaction is our priority.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div>
+
+        <span>🥦</span>
+
+        <div>
+
+            <h3>Quality Food</h3>
+
+            <p>
+                Nutritious and delicious meals every day.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div>
+
+        <span>💬</span>
+
+        <div>
+
+            <h3>Speak Up</h3>
+
+            <p>
+                Your feedback helps us serve you better.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script th:src="@{/js/script.js}"></script>
+
 </body>
 </html>

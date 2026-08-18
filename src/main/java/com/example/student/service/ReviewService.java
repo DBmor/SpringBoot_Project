@@ -1,48 +1,51 @@
 package com.example.student.service;
 
+import com.example.student.model.Menu;
 import com.example.student.model.Review;
 import com.example.student.repository.ReviewRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class ReviewService {
-    
+
     private final ReviewRepository reviewRepository;
-    private final MenuItemService menuItemService;
-    
-    public List<Review> getReviewsByMenuItemId(Long menuItemId) {
-        return reviewRepository.findByMenuItemId(menuItemId);
+    private final MenuService menuService;
+
+    public ReviewService(
+            ReviewRepository reviewRepository,
+            MenuService menuService
+    ) {
+        this.reviewRepository = reviewRepository;
+        this.menuService = menuService;
     }
-    
-    public Review createReview(Review review) {
-        Review savedReview = reviewRepository.save(review);
-        menuItemService.updateAverageRating(review.getMenuItem().getId());
-        return savedReview;
+
+    public void saveReview(
+            Long menuId,
+            String studentName,
+            String rollNo,
+            Integer rating,
+            String reviewText
+    ) {
+
+        Menu menu = menuService.getMenuById(menuId);
+
+        Review review = new Review();
+
+        review.setMenu(menu);
+        review.setStudentName(studentName);
+        review.setRollNo(rollNo);
+        review.setRating(rating);
+        review.setReview(reviewText);
+        review.setCreatedAt(LocalDateTime.now());
+
+        reviewRepository.save(review);
     }
-    
-    public Optional<Review> getReviewById(Long id) {
-        return reviewRepository.findById(id);
-    }
-    
-    public void deleteReview(Long id) {
-        Review review = reviewRepository.findById(id).orElseThrow();
-        Long menuItemId = review.getMenuItem().getId();
-        reviewRepository.deleteById(id);
-        menuItemService.updateAverageRating(menuItemId);
-    }
-    
-    public Review updateReview(Long id, Review updatedReview) {
-        return reviewRepository.findById(id).map(review -> {
-            review.setRating(updatedReview.getRating());
-            review.setComment(updatedReview.getComment());
-            Review saved = reviewRepository.save(review);
-            menuItemService.updateAverageRating(review.getMenuItem().getId());
-            return saved;
-        }).orElseThrow(() -> new RuntimeException("Review not found"));
+
+    public List<Review> getReviewsByMenuId(Long menuId) {
+
+        return reviewRepository.findByMenuId(menuId);
     }
 }

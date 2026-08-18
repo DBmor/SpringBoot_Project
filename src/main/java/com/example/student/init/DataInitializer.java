@@ -1,101 +1,75 @@
 package com.example.student.init;
 
-import com.example.student.model.MenuItem;
-import com.example.student.repository.MenuItemRepository;
-import lombok.RequiredArgsConstructor;
+import com.example.student.model.MealType;
+import com.example.student.model.Menu;
+import com.example.student.repository.MenuRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component
-@RequiredArgsConstructor
 public class DataInitializer implements CommandLineRunner {
-    
-    private final MenuItemRepository menuItemRepository;
-    
-    @Override
-    public void run(String... args) throws Exception {
-        // Check if data already exists
-        if (menuItemRepository.count() == 0) {
-            initializeMenuItems();
-        }
+
+    private final MenuRepository menuRepository;
+
+    public DataInitializer(MenuRepository menuRepository) {
+        this.menuRepository = menuRepository;
     }
-    
-    private void initializeMenuItems() {
-        MenuItem[] menuItems = {
-            // Vegetarian
-            MenuItem.builder()
-                .name("Paneer Butter Masala")
-                .description("Soft paneer cubes in a rich and creamy tomato-based sauce")
-                .price(280.0)
-                .category("Vegetarian")
-                .build(),
-            
-            MenuItem.builder()
-                .name("Dal Makhani")
-                .description("Black lentils and kidney beans cooked overnight with butter and cream")
-                .price(250.0)
-                .category("Vegetarian")
-                .build(),
-            
-            MenuItem.builder()
-                .name("Aloo Gobi")
-                .description("Potatoes and cauliflower stir-fried with aromatic spices")
-                .price(180.0)
-                .category("Vegetarian")
-                .build(),
-            
-         
-            
-            // Vegan
-            MenuItem.builder()
-                .name("Chana Masala")
-                .description("Chickpeas in a flavorful onion and tomato sauce")
-                .price(200.0)
-                .category("Vegan")
-                .build(),
-            
-            MenuItem.builder()
-                .name("Vegetable Biryani")
-                .description("Fragrant rice cooked with mixed vegetables")
-                .price(220.0)
-                .category("Vegan")
-                .build(),
-            
-            // Dessert
-            MenuItem.builder()
-                .name("Gulab Jamun")
-                .description("Soft milk balls soaked in warm sugar syrup")
-                .price(120.0)
-                .category("Dessert")
-                .build(),
-            
-            MenuItem.builder()
-                .name("Kheer")
-                .description("Rice pudding with condensed milk and dry fruits")
-                .price(100.0)
-                .category("Dessert")
-                .build(),
-            
-            // Beverage
-            MenuItem.builder()
-                .name("Masala Chai")
-                .description("Traditional Indian tea with aromatic spices")
-                .price(50.0)
-                .category("Beverage")
-                .build(),
-            
-            MenuItem.builder()
-                .name("Mango Lassi")
-                .description("Yogurt-based drink with fresh mango flavor")
-                .price(80.0)
-                .category("Beverage")
-                .build()
-        };
-        
-        for (MenuItem item : menuItems) {
-            menuItemRepository.save(item);
+
+    @Override
+    public void run(String... args) {
+
+        LocalDate today = LocalDate.now();
+
+        if (menuRepository
+                .findByMenuDateAndMealType(
+                        today,
+                        MealType.BREAKFAST
+                )
+                .isEmpty()) {
+
+            menuRepository.save(
+                    new Menu(
+                            today,
+                            MealType.BREAKFAST,
+                            "Thepla, Dahi, Chutney, Tea"
+                    )
+            );
         }
-        
-        System.out.println("Sample menu items loaded successfully!");
+
+        if (menuRepository
+                .findByMenuDateAndMealType(
+                        today,
+                        MealType.LUNCH
+                )
+                .isEmpty()) {
+
+            menuRepository.save(
+                    new Menu(
+                            today,
+                            MealType.LUNCH,
+                            "Roti, Gujarati Dal, Rice, Mix Vegetable, Salad, Chaas"
+                    )
+            );
+        }
+
+        if (menuRepository
+                .findByMenuDateAndMealType(
+                        today,
+                        MealType.DINNER
+                )
+                .isEmpty()) {
+
+            menuRepository.save(
+                    new Menu(
+                            today,
+                            MealType.DINNER,
+                            "Khichdi, Kadhi, Bhakhri, Sabzi, Salad"
+                    )
+            );
+        }
+
+        System.out.println("Today's menu loaded successfully!");
     }
 }

@@ -1,44 +1,65 @@
 package com.example.student.model;
 
 import jakarta.persistence.*;
-import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "suggestions")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Suggestion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(nullable = false)
     private String studentName;
-    
+
     @Column(nullable = false)
-    private String studentEmail;
-    
-    @Column(nullable = false, length = 500)
+    private String rollNo;
+
+    @Column(nullable = false)
+    private LocalDate date;
+
+    @Column(nullable = false, length = 1000)
     private String suggestion;
-    
-    @Column(length = 1000)
-    private String description;
-    
-    @Column(nullable = false)
-    private String category; // e.g., "New Item", "Improvement", "General"
-    
-    private Boolean isResolved;
-    
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-    
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        isResolved = false;
+
+    public Suggestion() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public String getRollNo() {
+        return rollNo;
+    }
+
+    public void setRollNo(String rollNo) {
+        this.rollNo = rollNo;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public String getSuggestion() {
+        return suggestion;
+    }
+
+    public void setSuggestion(String suggestion) {
+        this.suggestion = suggestion;
     }
 }
