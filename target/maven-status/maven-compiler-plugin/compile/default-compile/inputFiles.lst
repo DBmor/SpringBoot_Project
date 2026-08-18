@@ -1,0 +1,16 @@
+E:\2springboot\student\src\main\java\com\example\student\controller\MenuController.java
+E:\2springboot\student\src\main\java\com\example\student\controller\PageController.java
+E:\2springboot\student\src\main\java\com\example\student\controller\ReviewController.java
+E:\2springboot\student\src\main\java\com\example\student\controller\SuggestionController.java
+E:\2springboot\student\src\main\java\com\example\student\init\DataInitializer.java
+E:\2springboot\student\src\main\java\com\example\student\model\MealType.java
+E:\2springboot\student\src\main\java\com\example\student\model\Menu.java
+E:\2springboot\student\src\main\java\com\example\student\model\Review.java
+E:\2springboot\student\src\main\java\com\example\student\model\Suggestion.java
+E:\2springboot\student\src\main\java\com\example\student\repository\MenuRepository.java
+E:\2springboot\student\src\main\java\com\example\student\repository\ReviewRepository.java
+E:\2springboot\student\src\main\java\com\example\student\repository\SuggestionRepository.java
+E:\2springboot\student\src\main\java\com\example\student\service\MenuService.java
+E:\2springboot\student\src\main\java\com\example\student\service\ReviewService.java
+E:\2springboot\student\src\main\java\com\example\student\service\SuggestionService.java
+E:\2springboot\student\src\main\java\com\example\student\StudentApplication.java

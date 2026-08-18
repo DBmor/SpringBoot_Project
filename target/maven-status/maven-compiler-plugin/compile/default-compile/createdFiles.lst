@@ -1,0 +1,16 @@
+com\example\student\controller\MenuController.class
+com\example\student\service\MenuService.class
+com\example\student\service\ReviewService.class
+com\example\student\controller\ReviewController.class
+com\example\student\service\SuggestionService.class
+com\example\student\repository\ReviewRepository.class
+com\example\student\repository\SuggestionRepository.class
+com\example\student\controller\PageController.class
+com\example\student\controller\SuggestionController.class
+com\example\student\model\Menu.class
+com\example\student\repository\MenuRepository.class
+com\example\student\model\Suggestion.class
+com\example\student\model\MealType.class
+com\example\student\model\Review.class
+com\example\student\StudentApplication.class
+com\example\student\init\DataInitializer.class
